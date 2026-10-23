@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="panel" style="max-width:760px"><h2>{{ 'Edit lead' if editing else 'Add a new lead' }}</h2>
+<form method="post" class="form-grid">
+<div><label for="name">Full name</label><input id="name" type="text" name="name" value="{{ lead.name }}" required></div>
+<div><label for="email">Email</label><input id="email" type="email" name="email" value="{{ lead.email }}" required></div>
+<div><label for="phone">Phone</label><input id="phone" type="text" name="phone" value="{{ lead.phone }}"></div>
+<div><label for="source">Lead source</label><select id="source" name="source">{% for s in SOURCES %}<option {{ 'selected' if s==lead.source }}>{{ s }}</option>{% endfor %}</select></div>
+<div><label for="product_interest">Product interest</label><select id="product_interest" name="product_interest">{% for p in PRODUCTS %}<option {{ 'selected' if p==lead.product_interest }}>{{ p }}</option>{% endfor %}</select></div>
+<div><label for="status">Status</label><select id="status" name="status">{% for s in STATUSES %}<option {{ 'selected' if s==lead.status }}>{{ s }}</option>{% endfor %}</select></div>
+<div class="full"><button class="btn">{{ 'Save changes' if editing else 'Add lead' }}</button> <a class="btn ghost" href="{{ url_for('leads') }}">Cancel</a></div>
+</form></div>
+{% endblock %}

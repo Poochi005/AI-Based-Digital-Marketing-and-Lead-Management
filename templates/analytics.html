@@ -1,0 +1,21 @@
+{% extends "base.html" %}{% from "_macros.html" import bars %}
+{% block body %}
+<div class="note"><b>Sample data</b> is used for website, orders, email and social figures. <b>Lead pipeline</b> and <b>campaign budget</b> come from your database.</div>
+<div class="grid g4" style="margin-bottom:20px">
+<div class="kpi"><span>Website visitors (7 days) · sample</span><b>{{ '{:,}'.format(visitors|sum) }}</b></div>
+<div class="kpi"><span>Orders (7 days) · sample</span><b>{{ orders|map(attribute=1)|sum }}</b></div>
+<div class="kpi light"><span>Email open rate · sample</span><b>36.4%</b></div>
+<div class="kpi light"><span>Total campaign budget</span><b>₹{{ '{:,}'.format(total_budget) }}</b></div></div>
+<div class="grid g2">
+<div class="panel"><h2>Website visitors · sample</h2>
+<svg viewBox="0 0 600 180" width="100%" role="img" aria-label="Line chart of daily website visitors">
+<polygon points="14,166 {% for x,y in points %}{{ x }},{{ y }} {% endfor %}586,166" fill="#e3f1e8"/>
+<polyline points="{% for x,y in points %}{{ x }},{{ y }} {% endfor %}" fill="none" stroke="#2e8b57" stroke-width="3"/>
+{% for x,y in points %}<circle cx="{{ x }}" cy="{{ y }}" r="4" fill="#1f6b42"/>{% endfor %}</svg>
+<div style="display:flex;justify-content:space-between" class="muted">{% for d in days %}<small>{{ d }}</small>{% endfor %}</div></div>
+<div class="panel"><h2>Orders per day · sample</h2><div class="cols">{% for d, v in orders %}<div><i style="height:{{ (v/75*100)|round|int }}%"></i>{{ v }}<br>{{ d }}</div>{% endfor %}</div></div>
+<div class="panel"><h2>Email engagement · sample</h2>{{ bars([('Opened',36),('Clicked',7),('Converted',2),('Unsubscribed',1)], suffix='%') }}</div>
+<div class="panel"><h2>Social engagement · sample</h2>{{ bars([('Instagram',2840),('Facebook',1920),('WhatsApp',1260)]) }}</div>
+<div class="panel"><h2>Lead pipeline · from database</h2>{{ bars(pipeline) }}</div>
+<div class="panel"><h2>Campaign budget · from database</h2>{{ bars(budget, prefix='₹') }}</div></div>
+{% endblock %}

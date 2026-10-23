@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="note">This is a visual example of a nurturing workflow. It does not send emails or run on a schedule.</div>
+<div class="panel"><h2>New lead nurturing workflow</h2><div class="flow">
+<div class="step"><div class="dot">🎯</div><div><h3>Trigger: new lead added</h3><p>A visitor signs up through the website form or newsletter.</p></div></div>
+<div class="step"><div class="dot">✉️</div><div><h3>Send welcome email</h3><p>Introduce GreenNest and share a first-order offer.</p></div></div>
+<div class="step"><div class="dot wait">⏳</div><div><h3>Wait 3 days</h3><p>Give the lead time to read and browse.</p></div></div>
+<div class="step"><div class="dot cond">❓</div><div><h3>Condition: did the lead open the email?</h3>
+<div class="branch"><div><b>Yes</b><br>Send product recommendations based on interest.</div><div><b>No</b><br>Resend with a new subject line.</div></div></div></div>
+<div class="step"><div class="dot wait">⏳</div><div><h3>Wait 5 days</h3><p>Pause before the next touchpoint.</p></div></div>
+<div class="step"><div class="dot cond">❓</div><div><h3>Condition: did the lead click a link?</h3>
+<div class="branch"><div><b>Yes</b><br>Mark as Qualified and notify the sales team.</div><div><b>No</b><br>Move to the monthly newsletter list.</div></div></div></div>
+<div class="step"><div class="dot">📞</div><div><h3>Follow-up</h3><p>Sales contacts qualified leads with a personal message.</p></div></div>
+</div></div>
+{% endblock %}

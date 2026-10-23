@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="note">Drafts come from a local template system inside this app. No live AI service is connected. Edit the text before using it.</div>
+<div class="grid g2"><div class="panel"><h2>What are you promoting?</h2>
+<form method="post"><div class="form-grid">
+<div><label for="product">Product</label><select id="product" name="product">{% for p in PRODUCTS %}<option {{ 'selected' if p==form.product }}>{{ p }}</option>{% endfor %}</select></div>
+<div><label for="tone">Tone</label><select id="tone" name="tone">{% for t in tones %}<option {{ 'selected' if t==form.tone }}>{{ t }}</option>{% endfor %}</select></div>
+<div class="full"><label for="audience">Audience</label><input id="audience" type="text" name="audience" value="{{ form.audience }}"></div>
+<div class="full"><label for="offer">Offer or message</label><input id="offer" type="text" name="offer" value="{{ form.offer }}"></div>
+<div class="full"><button class="btn">Generate drafts</button></div></div></form></div>
+<div class="panel"><h2>Drafts</h2>{% if result %}
+<h3>Email subjects</h3>{% for s in result.subjects %}<div class="copy">{{ s }}</div>{% endfor %}
+<h3>Headlines</h3>{% for h in result.headlines %}<div class="copy">{{ h }}</div>{% endfor %}
+<h3>Marketing copy</h3><div class="copy" style="white-space:pre-line">{{ result.body }}</div>
+{% else %}<p class="muted">Choose a product and tone, then select Generate drafts.</p>{% endif %}</div></div>
+{% endblock %}

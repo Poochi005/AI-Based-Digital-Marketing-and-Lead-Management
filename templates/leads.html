@@ -1,0 +1,10 @@
+{% extends "base.html" %}{% from "_macros.html" import status_select %}
+{% block body %}
+<div class="panel"><div class="panel-head"><form class="filters" method="get">
+<input name="q" value="{{ q }}" placeholder="Search name, email, product" aria-label="Search">
+<select name="status" aria-label="Filter by status" onchange="this.form.submit()"><option value="">All statuses</option>{% for s in STATUSES %}<option {{ 'selected' if s==status }}>{{ s }}</option>{% endfor %}</select>
+<button class="btn ghost">Filter</button></form><a class="btn" href="{{ url_for('lead_add') }}">+ Add lead</a></div>
+<div class="table-wrap"><table><tr><th>Name</th><th>Email</th><th>Phone</th><th>Source</th><th>Product interest</th><th>Status</th><th>Created</th><th></th></tr>
+{% for l in leads %}<tr><td><b>{{ l.name }}</b></td><td>{{ l.email }}</td><td>{{ l.phone }}</td><td>{{ l.source }}</td><td>{{ l.product_interest }}</td><td>{{ status_select(l) }}</td><td>{{ l.created_at }}</td><td><a href="{{ url_for('lead_edit', lead_id=l.id) }}">Edit</a></td></tr>
+{% else %}<tr><td colspan="8" class="muted">No leads match. <a href="{{ url_for('lead_add') }}">Add the first lead</a>.</td></tr>{% endfor %}</table></div></div>
+{% endblock %}

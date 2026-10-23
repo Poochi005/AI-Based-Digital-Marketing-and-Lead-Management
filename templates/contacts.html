@@ -1,0 +1,7 @@
+{% extends "base.html" %}{% from "_macros.html" import badge %}
+{% block body %}
+<div class="panel"><div class="panel-head"><h2>{{ contacts|length }} contacts</h2><span class="muted">Contacts are leads that have been reached: Contacted, Qualified, Proposal or Converted.</span></div>
+<div class="table-wrap"><table><tr><th>Name</th><th>Email</th><th>Phone</th><th>Interest</th><th>Status</th><th></th></tr>
+{% for c in contacts %}<tr><td><span class="ini">{{ c.name[:1] }}{{ c.name.split()[-1][:1] }}</span>{{ c.name }}</td><td><a href="mailto:{{ c.email }}">{{ c.email }}</a></td><td>{{ c.phone }}</td><td>{{ c.product_interest }}</td><td>{{ badge(c.status) }}</td><td><a href="{{ url_for('lead_edit', lead_id=c.id) }}">Edit</a></td></tr>
+{% else %}<tr><td colspan="6" class="muted">No contacts yet.</td></tr>{% endfor %}</table></div></div>
+{% endblock %}

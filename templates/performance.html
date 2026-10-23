@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="note"><b>Sample data.</b> Open, click and conversion figures are illustrative numbers generated for this demo. No emails were sent.</div>
+{% if selected %}
+<div class="panel"><form class="filters" method="get"><select name="id" aria-label="Choose email campaign" onchange="this.form.submit()">{% for c in campaigns %}<option value="{{ c.id }}" {{ 'selected' if c.id==selected.id }}>{{ c.name }}</option>{% endfor %}</select><noscript><button class="btn ghost">Show</button></noscript></form></div>
+<div class="grid g4" style="margin-bottom:20px">
+<div class="kpi light"><span>Emails sent</span><b>{{ '{:,}'.format(metrics.sent) }}</b></div>
+<div class="kpi"><span>Opens</span><b>{{ '{:,}'.format(metrics.opens) }}</b><small>{{ (metrics.opens/metrics.sent*100)|round(1) }}% open rate</small></div>
+<div class="kpi"><span>Clicks</span><b>{{ '{:,}'.format(metrics.clicks) }}</b><small>{{ (metrics.clicks/metrics.sent*100)|round(1) }}% click rate</small></div>
+<div class="kpi"><span>Conversions</span><b>{{ '{:,}'.format(metrics.conv) }}</b><small>{{ (metrics.conv/metrics.sent*100)|round(1) }}% conversion</small></div></div>
+<div class="grid g2"><div class="panel"><h2>Email preview</h2><div class="email-prev"><div class="hd">🌿 GreenNest Home Essentials</div>
+<div class="bd"><b>{{ selected.name }}</b><p>Hi there,</p><p>{{ selected.objective or 'Discover our latest eco-friendly home essentials.' }} Made for {{ selected.target_audience|lower or 'you' }}.</p><span class="cta">Shop now</span><p class="muted">Sustainable products for everyday living.</p></div><div class="ft">You're receiving this because you subscribed · Unsubscribe</div></div></div>
+<div class="panel"><h2>All email campaigns (sample metrics)</h2><div class="table-wrap"><table><tr><th>Campaign</th><th>Sent</th><th>Opens</th><th>Clicks</th><th>Conv.</th></tr>
+{% for c, m in table %}<tr><td><a href="{{ url_for('performance', id=c.id) }}">{{ c.name }}</a></td><td>{{ m.sent }}</td><td>{{ m.opens }}</td><td>{{ m.clicks }}</td><td>{{ m.conv }}</td></tr>{% endfor %}</table></div></div></div>
+{% else %}<div class="panel muted">No email campaigns yet. <a href="{{ url_for('campaign_add') }}">Create one</a> with the Email channel.</div>{% endif %}
+{% endblock %}

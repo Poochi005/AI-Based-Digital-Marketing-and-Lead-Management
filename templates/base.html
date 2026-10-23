@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ title }} · GreenNest CRM</title><link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"></head>
+<body>
+<input type="checkbox" id="nav-toggle" hidden>
+<aside class="sidebar"><div class="brand">🌿 GreenNest<small>Home Essentials CRM</small></div>
+<nav>{% for prefix, ep, label, icon in NAV %}<a href="{{ url_for(ep) }}" class="{{ 'active' if request.endpoint.startswith(prefix) }}"><span class="ico">{{ icon }}</span>{{ label }}</a>{% endfor %}</nav></aside>
+<div class="main">
+<header class="topbar"><label for="nav-toggle" class="menu-btn" aria-label="Menu">☰</label><h1>{{ title }}</h1>
+<form action="{{ url_for('leads') }}"><input name="q" type="search" placeholder="Search leads…" aria-label="Search leads"></form><div class="avatar">GN</div></header>
+<main class="content">
+{% with msgs = get_flashed_messages(with_categories=true) %}{% for cat, m in msgs %}<div class="flash {{ cat }}">{{ m }}</div>{% endfor %}{% endwith %}
+{% block body %}{% endblock %}
+</main></div></body></html>

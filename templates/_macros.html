@@ -1,0 +1,6 @@
+{% macro badge(s) %}<span class="badge b-{{ s|lower }}">{{ s }}</span>{% endmacro %}
+{% macro bars(items, prefix='', suffix='') %}{% set mx = (items|map(attribute=1)|max) or 1 %}
+{% for label, v in items %}<div class="bar-row"><span>{{ label }}</span><div class="bar"><i style="width:{{ (v/mx*100)|round|int }}%"></i></div><em>{{ prefix }}{{ '{:,}'.format(v) }}{{ suffix }}</em></div>{% endfor %}{% endmacro %}
+{% macro status_select(lead) %}<form method="post" action="{{ url_for('lead_status', lead_id=lead.id) }}">
+<select name="status" aria-label="Status for {{ lead.name }}" onchange="this.form.submit()">{% for s in STATUSES %}<option {{ 'selected' if s==lead.status }}>{{ s }}</option>{% endfor %}</select>
+<noscript><button class="btn ghost">Save</button></noscript></form>{% endmacro %}

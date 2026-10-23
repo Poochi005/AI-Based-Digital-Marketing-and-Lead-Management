@@ -1,0 +1,7 @@
+{% extends "base.html" %}{% from "_macros.html" import status_select %}
+{% block body %}
+<div class="kanban">{% for stage, items in stages.items() %}
+<div class="kcol"><h3>{{ stage }} <span class="badge b-{{ stage|lower }}">{{ items|length }}</span></h3>
+{% for l in items %}<div class="card"><b>{{ l.name }}</b>{{ l.product_interest }}<br><span class="muted">{{ l.source }} · {{ l.created_at }}</span>{{ status_select(l) }}</div>
+{% else %}<p class="muted">No leads in this stage.</p>{% endfor %}</div>{% endfor %}</div>
+{% endblock %}

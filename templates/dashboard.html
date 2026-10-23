@@ -1,0 +1,13 @@
+{% extends "base.html" %}{% from "_macros.html" import badge, bars %}
+{% block body %}
+<div class="grid g4" style="margin-bottom:20px">
+<div class="kpi"><span>Total leads</span><b>{{ stats.total }}</b><small>{{ stats.rate }}% converted</small></div>
+<div class="kpi"><span>Contacts</span><b>{{ stats.contacts }}</b><small>Leads we've engaged</small></div>
+<div class="kpi"><span>Deals in progress</span><b>{{ stats.deals }}</b><small>Qualified + proposal</small></div>
+<div class="kpi"><span>Converted customers</span><b>{{ stats.converted }}</b><small>{{ stats.campaigns }} active campaigns</small></div></div>
+<div class="grid g2">
+<div class="panel"><h2>Lead sources</h2>{{ bars(sources) }}</div>
+<div class="panel"><div class="panel-head"><h2>Recent leads</h2><a class="btn ghost" href="{{ url_for('lead_add') }}">+ Add lead</a></div>
+<div class="table-wrap"><table><tr><th>Name</th><th>Interest</th><th>Status</th></tr>
+{% for l in recent %}<tr><td><a href="{{ url_for('lead_edit', lead_id=l.id) }}">{{ l.name }}</a><br><small class="muted">{{ l.created_at }}</small></td><td>{{ l.product_interest }}</td><td>{{ badge(l.status) }}</td></tr>{% endfor %}</table></div></div></div>
+{% endblock %}

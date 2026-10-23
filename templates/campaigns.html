@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="panel"><div class="panel-head"><h2>{{ campaigns|length }} campaigns · ₹{{ '{:,.0f}'.format(total_budget) }} total budget</h2><a class="btn" href="{{ url_for('campaign_add') }}">+ New campaign</a></div>
+<div class="table-wrap"><table><tr><th>Campaign</th><th>Channel</th><th>Target audience</th><th>Objective</th><th>Budget</th><th>Status</th><th>Created</th></tr>
+{% for c in campaigns %}<tr><td><b>{{ c.name }}</b></td><td>{{ c.channel }}</td><td>{{ c.target_audience }}</td><td>{{ c.objective }}</td><td>₹{{ '{:,.0f}'.format(c.budget) }}</td>
+<td><form method="post" action="{{ url_for('campaign_status', cid=c.id) }}"><select name="status" aria-label="Status for {{ c.name }}" onchange="this.form.submit()">{% for s in CAMPAIGN_STATUSES %}<option {{ 'selected' if s==c.status }}>{{ s }}</option>{% endfor %}</select><noscript><button class="btn ghost">Save</button></noscript></form></td><td>{{ c.created_at }}</td></tr>{% endfor %}</table></div></div>
+{% endblock %}

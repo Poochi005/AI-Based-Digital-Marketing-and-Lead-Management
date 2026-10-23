@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="panel" style="max-width:760px"><h2>Create a campaign</h2>
+<form method="post" class="form-grid">
+<div class="full"><label for="name">Campaign name</label><input id="name" type="text" name="name" value="{{ c.name }}" required></div>
+<div><label for="channel">Marketing channel</label><select id="channel" name="channel">{% for ch in CHANNELS %}<option {{ 'selected' if ch==c.channel }}>{{ ch }}</option>{% endfor %}</select></div>
+<div><label for="status">Status</label><select id="status" name="status">{% for s in CAMPAIGN_STATUSES %}<option {{ 'selected' if s==c.status }}>{{ s }}</option>{% endfor %}</select></div>
+<div><label for="target_audience">Target audience</label><input id="target_audience" type="text" name="target_audience" value="{{ c.target_audience }}" placeholder="e.g. Women 25-40, urban"></div>
+<div><label for="budget">Budget (₹)</label><input id="budget" type="number" min="0" step="100" name="budget" value="{{ c.budget }}"></div>
+<div class="full"><label for="objective">Objective</label><textarea id="objective" name="objective" placeholder="What should this campaign achieve?">{{ c.objective }}</textarea></div>
+<div class="full"><button class="btn">Create campaign</button> <a class="btn ghost" href="{{ url_for('campaigns') }}">Cancel</a></div>
+</form></div>
+{% endblock %}
